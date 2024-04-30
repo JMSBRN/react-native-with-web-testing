@@ -1,21 +1,59 @@
 import React from 'react';
-import {View, FlatList, Text} from 'react-native';
-import styles from '../styles/styles';
+import {View, Text, StyleSheet, ViewStyle, TextStyle} from 'react-native';
 
 function NavLinks({
-  links,
+  stylesLinksContainer,
+  stylesForLinks,
 }: {
-  links: {name: string; src: string; path: string}[];
+  stylesLinksContainer?: ViewStyle;
+  stylesForLinks?: TextStyle;
 }) {
+  const links = [
+    {
+      name: 'Home',
+      src: 'Home',
+      path: '/',
+    },
+    {
+      name: 'About',
+      src: 'About',
+      path: '/about',
+    },
+    {
+      name: 'Contact',
+      src: 'Contact',
+      path: '/contact',
+    },
+    {
+      name: 'Login',
+      src: 'Login',
+      path: '/login',
+    },
+  ];
+
   return (
-    <View>
-      <FlatList
-        data={links}
-        renderItem={({item}) => <Text style={styles.link}>{item.name}</Text>}
-        keyExtractor={item => item.path}
-      />
+    <View style={styles(stylesLinksContainer).LinksContainer}>
+      {links.map(item => (
+        <Text style={styles(undefined, stylesForLinks).link} onPress={() => {}}>
+          {item.name}
+        </Text>
+      ))}
     </View>
   );
 }
 
 export default NavLinks;
+
+const styles = (stylesLinksContainer?: ViewStyle, stylesForLinks?: TextStyle) =>
+  StyleSheet.create({
+    LinksContainer: stylesLinksContainer || {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+    link: stylesForLinks || {
+      marginHorizontal: 13,
+      fontSize: 16,
+    },
+  });

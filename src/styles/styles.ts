@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {IColor, IFontWeight} from './interfaces';
+import {IColor} from './interfaces';
 
 export const color: IColor = {
   primary: '#ff6347',
@@ -20,19 +20,21 @@ export const size = {
   xxl: 64,
   xxxl: 96,
 };
-export const weight: IFontWeight = {
+export const weight: Record<string, any> = {
   light: '100',
   normal: '400',
   medium: '500',
   semibold: '600',
   bold: '700',
   extrabold: '800',
-  black: '900',
+  xlBold: '900',
 };
 
 const root = StyleSheet.create({
   body: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   main: {
     flex: 1,
@@ -49,8 +51,8 @@ const root = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flex: 1,
-    padding: 16,
+    width: '100%',
+    maxWidth: 1440,
   },
   mainTitle: {
     fontSize: size.md,
@@ -65,8 +67,8 @@ const root = StyleSheet.create({
     color: color.black,
   },
   link: {
-    fontSize: size.md,
-    color: color.black,
+    margin: 5,
+    fontSize: 20,
   },
   image: {
     width: 320,
