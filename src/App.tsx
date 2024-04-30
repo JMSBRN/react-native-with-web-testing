@@ -1,14 +1,11 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
+import Header from './layout/Header';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView>
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
-          <Text>Hello, World!</Text>
-        </View>
-      </ScrollView>
+      <Header />
     </SafeAreaView>
   );
 }
