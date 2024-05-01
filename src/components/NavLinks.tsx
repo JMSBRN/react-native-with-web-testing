@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {color} from '../styles/styles';
 
 function NavLinks({
   stylesLinksContainer,
@@ -30,11 +31,18 @@ function NavLinks({
       path: '/login',
     },
   ];
+  const [isActive, setIsActive] = useState<string>('Home');
 
   return (
     <View style={styles(stylesLinksContainer).LinksContainer}>
       {links.map(item => (
-        <Text style={styles(undefined, stylesForLinks).link} onPress={() => {}}>
+        <Text
+          key={item.name}
+          style={[
+            styles(undefined, stylesForLinks).link,
+            isActive === item.name && styles().activeLink,
+          ]}
+          onPress={() => setIsActive(item.name)}>
           {item.name}
         </Text>
       ))}
@@ -55,5 +63,8 @@ const styles = (stylesLinksContainer?: ViewStyle, stylesForLinks?: TextStyle) =>
     link: stylesForLinks || {
       marginHorizontal: 13,
       fontSize: 16,
+    },
+    activeLink: {
+      color: color.light,
     },
   });

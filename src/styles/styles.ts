@@ -7,10 +7,11 @@ export const color: IColor = {
   background: '#ffffff',
   black: '#000000',
   light: '#f0f0f0',
+  blue: '#0b57d0',
   gray: '#808080',
   lightGray: '#d3d3d3',
   warning: '#ff6347',
-  error: '#ff6347',
+  error: '#f5060b',
 };
 export const size = {
   sm: 12,
@@ -33,7 +34,7 @@ export const weight: Record<string, any> = {
 const root = StyleSheet.create({
   body: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   main: {

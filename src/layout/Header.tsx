@@ -1,29 +1,37 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import {color} from '../styles/styles';
 import useHideElement from '../hooks/useHideElement';
 import NavLinks from '../components/NavLinks';
+import MainButton from '../components/MainButton';
 function Header({handleToggleModal}: {handleToggleModal: () => void}) {
-  const isNotMobileSize = useHideElement(450);
+  const isNotMobileSize = useHideElement(650);
+  const platform = Platform.OS;
+  const isDescTopSize = isNotMobileSize && platform !== 'android';
 
   return (
     <View style={styles.headerWrapper}>
-      {isNotMobileSize ? (
-        <View style={styles.container}>
-          <View style={styles.logo}>
-            <Text style={styles.logoTitle}>Logo</Text>
-          </View>
-          <NavLinks />
-          <View style={styles.authBlock}>
-            <Button color={color.secondary} title="Sign Up" />
-            <Button color={color.secondary} title="Log In" />
-          </View>
+      <View style={styles.container}>
+        {!isNotMobileSize && (
+          <MainButton
+            onPress={handleToggleModal}
+            bgColorProp={color.secondary}
+            title="Menu"
+          />
+        )}
+        {isDescTopSize && (
+          <>
+            <View style={styles.logo}>
+              <Text style={styles.logoTitle}>Logo</Text>
+            </View>
+            <NavLinks />
+          </>
+        )}
+        <View style={styles.authBlock}>
+          <MainButton onPress={() => {}} title="Log In" />
+          <MainButton onPress={() => {}} title="Sign Up" />
         </View>
-      ) : (
-        <Text style={styles.menuButton} onPress={handleToggleModal}>
-          Menu
-        </Text>
-      )}
+      </View>
     </View>
   );
 }
@@ -68,17 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   authBlock: {
-    display: 'flex',
     flexDirection: 'row',
-    gap: 5,
-  },
-  menuButton: {
-    textAlign: 'center',
-    width: '20%',
-    alignSelf: 'flex-start',
-    backgroundColor: color.secondary,
-    color: 'white',
-    padding: 5,
-    borderRadius: 5,
+    columnGap: 20,
   },
 });
