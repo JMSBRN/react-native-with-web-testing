@@ -4,7 +4,7 @@ import {Text, View} from 'react-native';
 function ErrorPage() {
   return (
     <View>
-      <Text>ErrorPage</Text>
+      <Text>Oops! Something went wrong...</Text>
     </View>
   );
 }

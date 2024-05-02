@@ -1,16 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import {color} from '../styles/styles';
 import useHideElement from '../hooks/useHideElement';
 import NavLinks from '../components/NavLinks';
 import MainButton from '../components/MainButton';
-function Header({handleToggleModal}: {handleToggleModal: () => void}) {
+import ModalMenu from '../components/ModalMenu';
+function Header() {
+  const [isRenderedModal, setIsRenderedModal] = useState(false);
   const isNotMobileSize = useHideElement(650);
   const platform = Platform.OS;
   const isDescTopSize = isNotMobileSize && platform !== 'android';
+  const handleToggleModal = () => {
+    setIsRenderedModal(!isRenderedModal);
+  };
 
   return (
     <View style={styles.headerWrapper}>
+      <ModalMenu
+        isRenderedModal={isRenderedModal}
+        handleToggleModal={handleToggleModal}
+      />
       <View style={styles.container}>
         {!isNotMobileSize && (
           <MainButton

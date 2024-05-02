@@ -1,25 +1,14 @@
-import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native';
-import {Header} from 'react-native/Libraries/NewAppScreen';
-import ModalMenu from '../components/ModalMenu';
-import Section from '../components/Section';
-import root from '../styles/styles';
+import React from 'react';
+import {Text, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 function Home() {
-  const [isRenderedModal, setIsRenderedModal] = useState(false);
-  const handleToggleModal = () => {
-    setIsRenderedModal(!isRenderedModal);
-  };
+  const navigation = useNavigation();
   return (
-    <SafeAreaView style={root.body}>
-      <ModalMenu
-        isRenderedModal={isRenderedModal}
-        handleToggleModal={handleToggleModal}
-      />
-      <Section>
-        <Header handleToggleModal={handleToggleModal} />
-      </Section>
-    </SafeAreaView>
+    <View>
+      <Text>Home</Text>
+      <Text onPress={() => navigation.navigate('About' as never)}>About</Text>
+    </View>
   );
 }
 

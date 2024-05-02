@@ -6,11 +6,16 @@ import Blog from '../pages/Blog';
 import Contact from '../pages/Contact';
 import Home from '../pages/Home';
 import Auth from '../pages/Auth';
+import ErrorPage from '../pages/ErrorPage';
 function StackPages() {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+    <NavigationContainer fallback={<ErrorPage />}>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+        }}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="Contact" component={Contact} />

@@ -1,7 +1,13 @@
 import React from 'react';
 import StackPages from './routes/StackPages';
+import Header from './layout/Header';
 function App(): React.JSX.Element {
-  return <StackPages />;
+  return (
+    <>
+      <Header />
+      <StackPages />
+    </>
+  );
 }
 
 export default App;
