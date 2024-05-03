@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import ModalMenu from '../components/ModalMenu';
 
 function Auth() {
   return (

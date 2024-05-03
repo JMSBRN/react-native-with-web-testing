@@ -7,8 +7,8 @@ function ModalMenu({
   isRenderedModal,
   handleToggleModal,
 }: {
-  isRenderedModal: boolean;
-  handleToggleModal: () => void;
+  isRenderedModal?: boolean;
+  handleToggleModal?: () => void;
 }) {
   return (
     <>
@@ -17,7 +17,7 @@ function ModalMenu({
           <MainButton
             bgColorProp={color.error}
             title="Close"
-            onPress={handleToggleModal}
+            onPress={handleToggleModal!}
           />
           <NavLinks
             stylesForLinks={styles.stylesForLinks}

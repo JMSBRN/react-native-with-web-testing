@@ -1,6 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  Pressable,
+} from 'react-native';
 import {color} from '../styles/styles';
+import {useNavigation} from '@react-navigation/native';
 
 function NavLinks({
   stylesLinksContainer,
@@ -26,25 +34,31 @@ function NavLinks({
       path: '/contact',
     },
     {
-      name: 'Login',
-      src: 'Login',
-      path: '/login',
+      name: 'Blog',
+      src: 'Blog',
+      path: '/blog',
     },
   ];
   const [isActive, setIsActive] = useState<string>('Home');
+  const navigation = useNavigation();
 
   return (
     <View style={styles(stylesLinksContainer).LinksContainer}>
       {links.map(item => (
-        <Text
+        <Pressable
           key={item.name}
-          style={[
-            styles(undefined, stylesForLinks).link,
-            isActive === item.name && styles().activeLink,
-          ]}
-          onPress={() => setIsActive(item.name)}>
-          {item.name}
-        </Text>
+          onPress={() => {
+            navigation.navigate(item.name as never);
+            setIsActive(item.name);
+          }}>
+          <Text
+            style={[
+              styles(undefined, stylesForLinks).link,
+              isActive === item.name && styles().activeLink,
+            ]}>
+            {item.name}
+          </Text>
+        </Pressable>
       ))}
     </View>
   );

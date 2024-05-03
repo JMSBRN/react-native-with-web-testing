@@ -5,13 +5,20 @@ import useHideElement from '../hooks/useHideElement';
 import NavLinks from '../components/NavLinks';
 import MainButton from '../components/MainButton';
 import ModalMenu from '../components/ModalMenu';
+import {useNavigation} from '@react-navigation/native';
 function Header() {
   const [isRenderedModal, setIsRenderedModal] = useState(false);
   const isNotMobileSize = useHideElement(650);
   const platform = Platform.OS;
   const isDescTopSize = isNotMobileSize && platform !== 'android';
+  const navigation = useNavigation();
   const handleToggleModal = () => {
-    setIsRenderedModal(!isRenderedModal);
+    if (platform === 'web') {
+      setIsRenderedModal(!isRenderedModal);
+    }
+    if (platform === 'android') {
+      navigation.navigate('Modal' as never);
+    }
   };
 
   return (
