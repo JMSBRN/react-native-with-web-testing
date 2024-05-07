@@ -1,30 +1,42 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import Form from '../components/form/Form';
+import {Patterns} from '../components/constants';
+import {useRoute} from '@react-navigation/native';
+import {FormInputs} from '../components/form/interfaces';
 
 const Auth = () => {
-  const formInputs = [
+  const route = useRoute();
+
+  const formInputs: FormInputs[] = [
     {
       name: 'username',
       placeholder: 'Username',
-      pattern: /^[a-zA-Z0-9_]{3,}[a-zA-Z]+[0-9]*$/, // Username pattern
+      pattern: Patterns.username,
     },
     {
       name: 'email',
       placeholder: 'Email',
-      pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, // Email pattern
+      pattern: Patterns.email,
     },
     {
       name: 'password',
       placeholder: 'Password',
       secureTextEntry: true,
-      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, // Password pattern
+      pattern: Patterns.password,
     },
   ];
 
   return (
     <View style={styles.container}>
-      <Form inputs={formInputs} />
+      <Text>{route.name === 'Register' ? 'Register' : 'Login'}</Text>
+      <Form
+        inputs={
+          route.name === 'Register'
+            ? formInputs
+            : formInputs.filter(input => input.name !== 'email')
+        }
+      />
     </View>
   );
 };
