@@ -13,9 +13,11 @@ import {useNavigation} from '@react-navigation/native';
 function NavLinks({
   stylesLinksContainer,
   stylesForLinks,
+  onPressLink,
 }: {
   stylesLinksContainer?: ViewStyle;
   stylesForLinks?: TextStyle;
+  onPressLink?: () => void;
 }) {
   const links = [
     {
@@ -50,6 +52,7 @@ function NavLinks({
           onPress={() => {
             navigation.navigate(item.name as never);
             setIsActive(item.name);
+            onPressLink && onPressLink();
           }}>
           <Text
             style={[
@@ -79,6 +82,6 @@ const styles = (stylesLinksContainer?: ViewStyle, stylesForLinks?: TextStyle) =>
       fontSize: 16,
     },
     activeLink: {
-      color: color.light,
+      color: color.gray,
     },
   });

@@ -6,19 +6,26 @@ import NavLinks from '../components/NavLinks';
 import MainButton from '../components/MainButton';
 import ModalMenu from '../components/ModalMenu';
 import {useNavigation} from '@react-navigation/native';
-function Header() {
+function Header({
+  setAndroidModalVisible,
+}: {
+  setAndroidModalVisible?: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [isRenderedModal, setIsRenderedModal] = useState(false);
   const isNotMobileSize = useHideElement(650);
+  const navigation = useNavigation();
   const platform = Platform.OS;
   const isDescTopSize = isNotMobileSize && platform !== 'android';
-  const navigation = useNavigation();
   const handleToggleModal = () => {
     if (platform === 'web') {
       setIsRenderedModal(!isRenderedModal);
     }
-    if (platform === 'android') {
-      navigation.navigate('Modal' as never);
+    if (setAndroidModalVisible && platform === 'android') {
+      setAndroidModalVisible(true);
     }
+  };
+  const handleNavigate = (pathName: never) => {
+    navigation.navigate(pathName);
   };
 
   return (
@@ -44,8 +51,14 @@ function Header() {
           </>
         )}
         <View style={styles.authBlock}>
-          <MainButton onPress={() => {}} title="Log In" />
-          <MainButton onPress={() => {}} title="Sign Up" />
+          <MainButton
+            onPress={() => handleNavigate('Login' as never)}
+            title="Log In"
+          />
+          <MainButton
+            onPress={() => handleNavigate('Register' as never)}
+            title="Sign Up"
+          />
         </View>
       </View>
     </View>

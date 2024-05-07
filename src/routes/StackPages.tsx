@@ -13,6 +13,7 @@ function StackPages() {
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
+        animation: 'none',
       }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="About" component={About} />
@@ -20,7 +21,6 @@ function StackPages() {
       <Stack.Screen name="Blog" component={Blog} />
       <Stack.Screen name="Login" component={Auth} />
       <Stack.Screen name="Register" component={Auth} />
-      <Stack.Screen name="Modal" component={Auth} />
     </Stack.Navigator>
   );
 }
