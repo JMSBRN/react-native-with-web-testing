@@ -5,14 +5,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import ErrorPage from './pages/ErrorPage';
 import SlideFromLeftModal from './components/SlideFromLeftModal';
 function App(): React.JSX.Element {
-  const [androidModalVisible, setAndroidModalVisible] = useState(false);
+  const [isModalRendered, setIsModalRendered] = useState(false);
   return (
     <NavigationContainer fallback={<ErrorPage />}>
-      <Header setAndroidModalVisible={setAndroidModalVisible} />
+      <Header setModalVisible={setIsModalRendered} />
       <StackPages />
       <SlideFromLeftModal
-        isVisible={androidModalVisible}
-        onClose={() => setAndroidModalVisible(false)}
+        isVisible={isModalRendered}
+        onClose={() => setIsModalRendered(false)}
       />
     </NavigationContainer>
   );

@@ -6,6 +6,7 @@ import {color} from '../styles/styles';
 import MainButton from './MainButton';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const SlideFromLeftModal = ({
   isVisible,
@@ -68,19 +69,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
-    bottom: 0,
     width: screenWidth / 2,
-    backgroundColor: 'white',
+    height: screenHeight,
     padding: 20,
-    justifyContent: 'flex-start',
+    backgroundColor: color.light,
+    zIndex: 100,
     alignItems: 'flex-end',
   },
   navLinksContainer: {
     width: '100%',
-    flexDirection: 'column',
-    gap: 10,
-    padding: 10,
-    height: 300,
+    backgroundColor: color.light,
+    gap: 20,
   },
   link: {
     color: color.primary,

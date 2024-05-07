@@ -1,27 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import {color} from '../styles/styles';
 import useHideElement from '../hooks/useHideElement';
 import NavLinks from '../components/NavLinks';
 import MainButton from '../components/MainButton';
-import ModalMenu from '../components/ModalMenu';
 import {useNavigation} from '@react-navigation/native';
 function Header({
-  setAndroidModalVisible,
+  setModalVisible,
 }: {
-  setAndroidModalVisible?: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [isRenderedModal, setIsRenderedModal] = useState(false);
   const isNotMobileSize = useHideElement(650);
   const navigation = useNavigation();
   const platform = Platform.OS;
   const isDescTopSize = isNotMobileSize && platform !== 'android';
   const handleToggleModal = () => {
-    if (platform === 'web') {
-      setIsRenderedModal(!isRenderedModal);
-    }
-    if (setAndroidModalVisible && platform === 'android') {
-      setAndroidModalVisible(true);
+    if (setModalVisible) {
+      setModalVisible(true);
     }
   };
   const handleNavigate = (pathName: never) => {
@@ -30,10 +25,6 @@ function Header({
 
   return (
     <View style={styles.headerWrapper}>
-      <ModalMenu
-        isRenderedModal={isRenderedModal}
-        handleToggleModal={handleToggleModal}
-      />
       <View style={styles.container}>
         {!isNotMobileSize && (
           <MainButton
