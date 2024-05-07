@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Platform, Alert} from 'react-native';
 import Input from './Input';
 import MainButton from '../MainButton';
 import {UserState} from './interfaces';
@@ -11,6 +11,7 @@ const Form = ({
     name: string;
     placeholder: string;
     secureTextEntry?: boolean;
+    pattern: RegExp;
   }[];
 }) => {
   const [user, setUser] = useState<UserState>({
@@ -29,6 +30,9 @@ const Form = ({
     const allValid = Object.values(user).every(Boolean);
     if (allValid) {
       console.log(user);
+      if (Platform.OS === 'android') {
+        Alert.alert('Success', JSON.stringify(user));
+      }
     } else {
       console.log('error');
     }
@@ -43,6 +47,7 @@ const Form = ({
           value={user[input.name as keyof UserState]}
           onChangeText={text => handleInputChange(text, input.name)}
           secureTextEntry={input.secureTextEntry || false}
+          pattern={input.pattern || undefined}
         />
       ))}
       <MainButton title="Submit" onPress={handleSubmit} />
