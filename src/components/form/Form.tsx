@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Platform, Alert} from 'react-native';
+import {View, StyleSheet, Platform, Alert, Text} from 'react-native';
 import Input from './Input';
 import MainButton from '../MainButton';
 import {UserState} from './interfaces';
+import {color} from '../../styles/styles';
 
 const Form = ({
   inputs,
@@ -19,6 +20,8 @@ const Form = ({
     password: '',
     email: '',
   });
+  const [errorMessageRendered, setErrorMessageRendered] =
+    useState<boolean>(false);
   const handleInputChange = (text: string, name: string) => {
     setUser(prevState => ({
       ...prevState,
@@ -35,11 +38,24 @@ const Form = ({
       }
     } else {
       console.log('error');
+      if (Platform.OS === 'android') {
+        Alert.alert('Please fill al fields');
+      } else {
+        setErrorMessageRendered(true);
+        setTimeout(() => {
+          setErrorMessageRendered(false);
+        }, 2000);
+      }
     }
   };
 
   return (
     <View style={styles.container}>
+      {errorMessageRendered && (
+        <View style={styles.errorMessage}>
+          <Text style={styles.errorMessageTitle}>Please fill all fields</Text>
+        </View>
+      )}
       {inputs.map((input, index) => (
         <Input
           key={index}
@@ -50,7 +66,11 @@ const Form = ({
           pattern={input.pattern || undefined}
         />
       ))}
-      <MainButton title="Submit" onPress={handleSubmit} />
+      <MainButton
+        disabled={errorMessageRendered}
+        title="Submit"
+        onPress={handleSubmit}
+      />
     </View>
   );
 };
@@ -58,6 +78,15 @@ const Form = ({
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+  },
+  errorMessage: {
+    position: 'absolute',
+    top: -10,
+    left: 200,
+  },
+  errorMessageTitle: {
+    fontSize: 15,
+    color: color.error,
   },
 });
 
