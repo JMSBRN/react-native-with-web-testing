@@ -1,7 +1,7 @@
 import {useQuery, useMutation} from 'react-query';
 import api from '../api/postsApi';
 import {Post} from './interfaces';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const fetchPosts = async () => {
   const response = await api.get('/posts');
@@ -21,7 +21,13 @@ const usePosts = () => {
   const {data, isLoading, isError} = useQuery<Post[]>('posts', fetchPosts);
   const createPostMutation = useMutation(createPost);
   const deletePostMutation = useMutation(deletePost);
-  const [posts, setPosts] = useState<Post[]>(data!);
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setPosts(data);
+    }
+  }, [data]);
 
   const addPost = async (post: Post) => {
     const newPost = await createPostMutation.mutateAsync(post);
