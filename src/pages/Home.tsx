@@ -1,16 +1,13 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, FlatList, ActivityIndicator} from 'react-native';
 import usePosts from '../hooks/usePosts';
-import {color} from '../styles/styles';
+import {postsStyle} from '../styles/styles';
+import {useTheme} from '@react-navigation/native';
 
 const Home: React.FC = () => {
   const {posts, isLoading, isError} = usePosts();
+  const theme = useTheme();
+  const {postContainer, postTitle, postText} = postsStyle(theme);
 
   if (isLoading) {
     return <ActivityIndicator size="large" />;
@@ -26,32 +23,14 @@ const Home: React.FC = () => {
         data={posts}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <View style={styles.postContainer}>
-            <Text style={styles.postTitle}>{item.title}</Text>
-            <Text style={styles.postText}>{item.body}</Text>
+          <View style={postContainer}>
+            <Text style={postTitle}>{item.title}</Text>
+            <Text style={postText}>{item.body}</Text>
           </View>
         )}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  postContainer: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: color.light,
-  },
-  postTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: color.gray,
-  },
-  postText: {
-    padding: 10,
-    fontSize: 10,
-    color: color.gray,
-  },
-});
 
 export default Home;

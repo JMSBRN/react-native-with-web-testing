@@ -25,10 +25,12 @@ function Header({
   const handleNavigate = (pathName: never) => {
     navigation.navigate(pathName);
   };
+  const {headerWrapper, container, logo, logoTitle, authBlock} =
+    stylesTheme(theme);
 
   return (
-    <View style={styles().headerWrapper}>
-      <View style={styles(theme).container}>
+    <View style={headerWrapper}>
+      <View style={container}>
         {!isNotMobileSize && (
           <>
             <MainButton
@@ -45,13 +47,13 @@ function Header({
         )}
         {isDescTopSize && (
           <>
-            <View style={styles().logo}>
-              <Text style={styles().logoTitle}>Logo</Text>
+            <View style={logo}>
+              <Text style={logoTitle}>Logo</Text>
             </View>
             <NavLinks />
           </>
         )}
-        <View style={styles().authBlock}>
+        <View style={authBlock}>
           <MainButton
             onPress={() => handleNavigate('Login' as never)}
             title="Log In"
@@ -67,14 +69,14 @@ function Header({
 }
 
 export default Header;
-
-const styles = (theme?: Theme) =>
-  StyleSheet.create({
+const stylesTheme = (theme: Theme) => {
+  const {colors} = theme;
+  return StyleSheet.create({
     headerWrapper: {
       width: '100%',
       height: 64,
-      backgroundColor: theme?.colors.background,
       justifyContent: 'center',
+      backgroundColor: colors.background,
     },
     container: {
       paddingHorizontal: 20,
@@ -86,7 +88,7 @@ const styles = (theme?: Theme) =>
     logo: {
       width: 50,
       height: 50,
-      backgroundColor: color.gray,
+      backgroundColor: colors.card,
       borderRadius: 50,
       overflow: 'hidden',
       display: 'flex',
@@ -111,3 +113,4 @@ const styles = (theme?: Theme) =>
       columnGap: 20,
     },
   });
+};

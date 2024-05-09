@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {IColor} from './interfaces';
+import {DarkTheme, DefaultTheme, Theme} from '@react-navigation/native';
 
 export const color: IColor = {
   primary: '#ff6347',
@@ -31,50 +32,98 @@ export const weight: Record<string, any> = {
   xlBold: '900',
 };
 
-const root = StyleSheet.create({
-  body: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+export const customDarkTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: color.primary,
+    background: color.gray,
+    card: color.black,
+    text: color.light,
+    border: color.light,
+    notification: color.error,
   },
-  main: {
-    flex: 1,
+};
+export const customDefaultTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: color.primary,
+    background: color.light,
+    card: color.light,
+    text: color.black,
+    border: color.black,
+    notification: color.error,
   },
-  header: {
-    height: 64,
-    backgroundColor: color.background,
-  },
-  footer: {
-    height: 64,
-    backgroundColor: color.black,
-  },
-  section: {
-    flex: 1,
-  },
-  container: {
-    width: '100%',
-    maxWidth: 1440,
-  },
-  mainTitle: {
-    fontSize: size.md,
-    color: color.black,
-  },
-  subTitle: {
-    fontSize: size.md,
-    color: color.black,
-  },
-  paragraph: {
-    fontSize: size.md,
-    color: color.black,
-  },
-  link: {
-    margin: 5,
-    fontSize: 20,
-  },
-  image: {
-    width: 320,
-    height: 240,
-  },
-});
+};
 
-export default root;
+export const mainStyle = (theme?: Theme) => {
+  const {colors} = theme!;
+  const {background} = colors;
+  return StyleSheet.create({
+    body: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
+    main: {
+      flex: 1,
+    },
+    header: {
+      height: 64,
+      backgroundColor: background,
+    },
+    footer: {
+      height: 64,
+      backgroundColor: color.black,
+    },
+    section: {
+      flex: 1,
+    },
+    container: {
+      width: '100%',
+      maxWidth: 1440,
+    },
+    mainTitle: {
+      fontSize: size.md,
+      color: color.black,
+    },
+    subTitle: {
+      fontSize: size.md,
+      color: color.black,
+    },
+    paragraph: {
+      fontSize: size.md,
+      color: color.black,
+    },
+    link: {
+      margin: 5,
+      fontSize: 20,
+    },
+    image: {
+      width: 320,
+      height: 240,
+    },
+  });
+};
+export const postsStyle = (theme?: Theme) => {
+  const {colors} = theme!;
+  return StyleSheet.create({
+    postContainer: {
+      padding: 16,
+      borderBottomWidth: 1,
+      backgroundColor: colors.background,
+      borderBottomColor: colors.border,
+    },
+    postTitle: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    postText: {
+      padding: 10,
+      fontSize: 10,
+      color: colors.text,
+    },
+  });
+};

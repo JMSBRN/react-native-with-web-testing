@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ViewStyle} from 'react-native';
-import root from '../styles/styles';
+import {mainStyle} from '../styles/styles';
 
 function Section({
   children,
@@ -9,8 +9,9 @@ function Section({
   children: React.JSX.Element;
   styleForChildren?: ViewStyle;
 }): React.JSX.Element {
+  const {container} = mainStyle();
   return (
-    <View style={root.container}>
+    <View style={container}>
       <View style={styleForChildren}>{children}</View>
     </View>
   );
