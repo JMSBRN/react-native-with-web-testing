@@ -7,11 +7,13 @@ import SlideFromLeftModal from './components/SlideFromLeftModal';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {customDarkTheme, customDefaultTheme} from './styles/styles';
 import useAsyncStorage from './hooks/useAsyncStorage';
+import {useColorScheme} from 'react-native';
 
 function App(): React.JSX.Element {
   const client = new QueryClient();
   const [isModalRendered, setIsModalRendered] = useState(false);
-  const [theme, setTheme] = useAsyncStorage('theme', 'light');
+  const deviceTheme = useColorScheme();
+  const [theme, setTheme] = useAsyncStorage('theme', deviceTheme);
 
   const handleToggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
